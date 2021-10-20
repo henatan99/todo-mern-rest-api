@@ -59,3 +59,24 @@ exports.createTodo = (req, res) => {
         res.json({ task });
     });
 };
+
+exports.updateTodo = (req, res) => {
+    // take req.todo from getTodoById() middleware and 
+    // fetch the todo that user wants to update 
+    const todo = req.todo;
+
+    // simply change the task of the todo that user want to update by
+    // the task that user has sent in req.body.task
+    todo.task = req.body.task;
+
+    // simply save that updated todo
+    todo.save((err, t) => {
+        if(err || !t) {
+            return res.status(400).json({
+                error: 'something went wrong while updating'
+            });
+        }
+        // snd the updated todo as json response 
+        res.json(t);
+    });
+};
