@@ -34,3 +34,10 @@ exports.getAllTodos = (req, res) => {
         res.json(todos);
     })
 };
+
+exports.getTodo = (req, res) => {
+    // this is pretty simple because we've already defined a middleware
+    // to get a todo from the URL id
+    // this req.todo is coming from that middleware
+    return res.json(req.todo)
+}
