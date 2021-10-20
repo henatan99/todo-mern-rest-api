@@ -41,3 +41,21 @@ exports.getTodo = (req, res) => {
     // this req.todo is coming from that middleware
     return res.json(req.todo)
 }
+
+exports.createTodo = (req, res) => {
+    // we will get json data from the frontend i.e req.body
+    const todo = new Todo(req.body);
+
+    //create a todo instance by passing 'task' field from 'req.body'
+    todo.save((err, task) => {
+        if(err || !task) {
+            return res.status(400).json({
+                error: "something went wrong",
+            });
+        }
+
+        // todo is created 
+        // send the created todo as json repsonse 
+        res.json({ task });
+    });
+};
